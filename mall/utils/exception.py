@@ -1,4 +1,3 @@
-#coding:utf8
 from rest_framework.views import exception_handler as drf_exception_handler
 import logging
 from django.db import DatabaseError

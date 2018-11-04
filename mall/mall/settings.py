@@ -11,10 +11,12 @@ https://docs.djangoproject.com/en/1.11/ref/settings/
 """
 
 import os
+import sys
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
+sys.path.insert(0,os.path.join(BASE_DIR,"apps"))
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.11/howto/deployment/checklist/
@@ -29,9 +31,6 @@ ALLOWED_HOSTS = []
 
 # 以前的子应用的路径 和 现在不一样了
 # 现在在apps文件夹中,所以我们可以告知系统 去 apps文件夹找
-import sys
-# path 是列表
-sys.path.insert(0,os.path.join(BASE_DIR,'apps'))
 
 # Application definition
 
@@ -46,6 +45,7 @@ INSTALLED_APPS = [
     # 因为我们设置了 apps路径,所以系统知道区哪里找,我们就不用写 apps
     'users.apps.UsersConfig',
     'rest_framework',
+
 ]
 
 MIDDLEWARE = [
@@ -95,8 +95,8 @@ DATABASES = {
         'HOST': '127.0.0.1',  # 数据库主机
         'PORT': 3306,  # 数据库端口
         'USER': 'root',  # 数据库用户名
-        'PASSWORD': 'mysql',  # 数据库用户密码
-        'NAME': 'meiduo_mall_15'  # 数据库名字
+        'PASSWORD': '123456',  # 数据库用户密码
+        'NAME': 'meiduo_15'  # 数据库名字
     }
 }
 
@@ -139,7 +139,6 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-
 CACHES = {
     "default": {
         "BACKEND": "django_redis.cache.RedisCache",
@@ -158,8 +157,6 @@ CACHES = {
 }
 SESSION_ENGINE = "django.contrib.sessions.backends.cache"
 SESSION_CACHE_ALIAS = "session"
-
-
 
 LOGGING = {
     'version': 1,
@@ -204,10 +201,7 @@ LOGGING = {
 REST_FRAMEWORK = {
     # 异常处理
     'EXCEPTION_HANDLER': 'utils.exception.exception_handler',
+
 }
 
-# 我们定义好了我们自己的用户模型,需要替换,
-# 我们通过AUTH_USER_MODEL 告知系统用哪个模型
-# 语法形式为: 子应用.模型类
-# 注意点: 只能有一个 .
 AUTH_USER_MODEL = 'users.User'
